@@ -1,0 +1,101 @@
+<form [formGroup]="totalForm" class="form" (ngSubmit)="handleSubmit()">
+  <div class="radio">
+    <label>
+      <input  type="radio" formControlName="option" value="fixed" (change)="toggleForm('fixed')"> Fixed</label>
+    <label>
+      <input  type="radio" formControlName="option" value="percent" (change)="toggleForm('percent')"> Percentage
+    </label>
+    <label>
+      <input type="radio" formControlName="option" value="slab" (change)="toggleForm('slab')"> Slab
+    </label>
+  </div>
+
+  <div  class="form-group" *ngIf="selectedOption=='fixed'">
+    <label>fixed</label>
+    <input id="fixed" type="number" placeholder="charge amount(tk)" class="form-control" formControlName="fixedCharge"
+           [class.is-invalid]="totalForm.get('fixedCharge')?.invalid && totalForm.get('fixedCharge')?.touched">
+    <small
+      *ngIf="totalForm.get('fixedCharge')?.invalid && totalForm.get('fixedCharge')?.touched"
+      class="text-danger"
+    >
+      Amount is required
+    </small>
+  </div>
+
+
+
+  <div   *ngIf="selectedOption=='percent'">
+    <label>percentage</label>
+    <input id="percent" type="number" placeholder="charge amount(%)" class="form-control" formControlName="fixedCharge"
+           [class.is-invalid]="totalForm.get('fixedCharge')?.invalid && totalForm.get('fixedCharge')?.touched">
+    <small
+      [class.d-none]="totalForm.get('fixedCharge')?.valid || totalForm.get('fixedCharge')?.untouched"
+      class="text-danger"
+    >
+      Amount is required
+    </small>
+
+    <input type="number" placeholder="minimum charge" class="form-control" formControlName="minimumCharge">
+    <input type="number" placeholder="maximum charge" class="form-control" formControlName="maximumCharge">
+    <small class="text-danger"
+           *ngIf="totalForm.errors?.['invalidAmount']==true"
+    >
+      invalid amount range
+    </small>
+
+  </div>
+
+
+
+  <div *ngIf="selectedOption === 'slab'">
+
+
+    <div formArrayName="rows">
+      <div *ngFor="let row of rowForms.controls; let i = index" [formGroupName]="i" class="container">
+        <div>Sl Number {{i}} </div>
+        <label>From Amount: <input class="form-control" type="number" formControlName="fromAmount"
+        (keypress)="$event.preventDefault()"
+        /></label>
+
+        <label>To Amount: <input [value]="row.get('lastSlab')?.value ? 1e9 : row.get('toAmount')?.value"
+                                 class="form-control" type="number" formControlName="toAmount" /></label>
+        <small *ngIf="!checkLastSlab() && rowForms.at(rowCnt - 1)?.get('toAmount')?.touched &&
+                   ( rowForms.at(rowCnt - 1)?.get('toAmount')?.invalid ||
+                   rowForms.at(rowCnt - 1)?.errors?.['invalidSlabAmount']==true)"
+                    class="text-danger"
+       >
+         valid  toAmount required
+       </small>
+
+
+
+        <label>last slab(y/n): <input  type="checkbox" formControlName="lastSlab" /></label>
+        <label>Fixed (y/n): <input  type="checkbox" formControlName="fixedSlab" /></label>
+
+        <label>Charge: <input class="form-control" type="number" formControlName="slabCharge" /></label>
+        <small class="text-danger"
+               *ngIf="rowForms.at(rowCnt - 1)?.get('slabCharge')?.invalid &&
+                rowForms.at(rowCnt - 1)?.get('slabCharge')?.touched"
+        >
+          Charge required
+        </small>
+
+        <label *ngIf="!row.get('fixedSlab')?.value" >Min Charge: <input type="number" class="form-control" formControlName="slabMinCharge" /></label>
+        <label *ngIf="!row.get('fixedSlab')?.value" >Max Charge: <input type="number" class="form-control" formControlName="slabMaxCharge" /></label>
+        <small *ngIf="rowForms.at(rowCnt - 1)?.errors?.['invalidSlabMinMaxAmount']"
+        class="text-danger">
+          valid range required
+        </small>
+      </div>
+    </div>
+    <button [disabled]="rowForms.at(rowCnt - 1)?.get('slabCharge')?.invalid || checkLastSlab() ||
+     rowForms.at(rowCnt - 1)?.errors?.['invalidSlabMinMaxAmount'] ||
+rowForms.at(rowCnt - 1)?.get('toAmount')?.invalid || rowForms.at(rowCnt - 1)?.errors?.['invalidSlabAmount']"
+            class="btn btn-secondary" type="button" (click)="addRow()">Add Row</button>
+
+  </div>
+
+
+  <button type="submit"
+          class="btn btn-primary">Submit</button>
+</form>

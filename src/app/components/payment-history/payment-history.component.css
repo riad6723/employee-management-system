@@ -1,0 +1,74 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  margin: 50px
+}
+
+.numbering{
+  display: flex;
+  gap: 2vw;
+    cursor: pointer;
+}
+
+.numbering span{
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
+.numbering span:hover{
+    background-color: #a8a7a7;
+}
+
+.pagination{
+  display: flex;
+  justify-content: start;
+  align-content: center;
+  margin-top: 5vh;
+  gap: 40px;
+}
+
+.hideLeftArrow{
+    color: silver;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.hideRightArrow{
+    color: silver;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.activeIndex{
+    background-color: rgb(126, 185, 245);
+    color: #ffffff;
+}
+
+.search{
+  display: flex;
+  gap: 2vw;
+}
+
+.search button{
+
+}
+

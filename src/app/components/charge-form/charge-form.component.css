@@ -1,0 +1,25 @@
+.form{
+  width: 80%;
+  margin: 40px;
+}
+.radio{
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 10px;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 50px;
+}
+
+button{
+  margin-top: 10px;
+}
+

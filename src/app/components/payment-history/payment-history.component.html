@@ -1,0 +1,92 @@
+
+<div class="container">
+  <h2>Payment History</h2>
+
+  <div >
+    <form class="search" [formGroup]="paymentHistorySearchForm" (ngSubmit)="handleApply()">
+      <label for="fromDate">From Date</label>
+      <input id="fromDate" placeholder="From Date"  formControlName="fromDate" type="date" (change)="handleFromDate()" [max]="handleMaxDate()" >
+      <label for="toDate">To Date</label>
+      <input id="toDate" placeholder="To Date"  formControlName="toDate" type="date" (change)="handleToDate()" [min]="paymentHistorySearchForm.get('fromDate')?.value" [max]="currDate">
+      <select formControlName="billerName" (change)="addToObjectForSearching('billerName',paymentHistorySearchForm.get('billerName')?.value)">
+        <option value="" disabled selected hidden>Biller Name</option>
+        <option value="btcl-domain"> btcl-domain</option>
+        <option value="dpdc postpaid"> Dpdc Postpaid</option>
+        <option value="dpdc prepaid"> Dpdc Prepaid</option>
+        <option value="paschimanchal gas"> Paschimanchal Gas</option>
+        <option value="jalalabad"> Jalalabad</option>
+        <option value="karnaphuliv2"> Karnaphuliv2</option>
+        <option value="Bakhrabad Gas"> Bakhrabad Gas</option>
+        <option value="west zone postpaid"> West Zone Postpaid</option>
+        <option value="nsda"> NSDA</option>
+        <option value="khulna wasa">Khulna wasa</option>
+        <option value="dhaka wasa">Dhaka wasa</option>
+        <option value="rwasa">rwasa</option>
+        <option value="desco postpaid"> Desco Postpaid</option>
+        <option value="nesco postpaid"> Nesco Postpaid</option>
+        <option value="e-mutation"> e-mutation</option>
+        <option value="eporcha" > eporcha</option>
+        <option value="Land Tax"> Land Tax</option>
+        <option value="desco prepaid"> Desco Prepaid</option>
+      </select>
+      <input type="text" formControlName="transactionID" placeholder="Transaction ID" (change)="addToObjectForSearching('transactionID',paymentHistorySearchForm.get('transactionID')?.value)">
+      <button [disabled]="checkApply()"  class="btn btn-success" type="submit">Apply</button>
+      <button class="btn btn-danger" (click)="handleReset()" >Reset</button>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Date & Time</th>
+      <th>Transaction ID</th>
+      <th>Total Amount</th>
+      <th>Service Charge</th>
+      <th>Service Name</th>
+      <th>Biller Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let payment of paymentList">
+      <td>{{ getFormattedDate(payment.timestamp)  }}</td>
+      <td>{{ payment.transactionId }}</td>
+      <td>{{ payment.totalAmount }}</td>
+      <td>{{ payment.serviceCharge }}</td>
+      <td>{{ payment.serviceName }}</td>
+      <td>{{ payment.billerName }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+
+    <span *ngIf="isEmpty">
+      {{offset}} - {{offset+numberOfElements}}  of  {{totalElements}}
+    </span>
+    <span *ngIf="!isEmpty">
+      {{offset+1}} - {{offset+numberOfElements}}  of  {{totalElements}}
+    </span>
+
+    <div class="numbering">
+      <span [class.hideLeftArrow]="firstPage" (click)="handleFirstPage()"> << </span>
+      <span [class.hideLeftArrow]="firstPage" (click)="handleGoingLeft()"> < </span>
+      <span *ngFor="let index of pageIndexesArray" (click)="handlePageIndexing(index)"
+            [class.activeIndex]="index==pageNumber+1"
+      > {{index}} </span>
+      <span [class.hideRightArrow]="lastPage" (click)="handleGoingRight()"> > </span>
+      <span [class.hideRightArrow]="lastPage" (click)="handleLastPage()"> >> </span>
+    </div>
+
+    <form [formGroup]="paymentHistoryPaginationForm">
+      <select (change)="handlePaymentsPerPage()" formControlName="paymentsPerPage">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </form>
+
+  </div>
+
+</div>
+

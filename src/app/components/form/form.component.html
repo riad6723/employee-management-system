@@ -1,0 +1,145 @@
+<div class="container">
+
+<form [formGroup]="employeeAddForm" class="employeeForm" (ngSubmit)="handleSubmit()" >
+
+  <div *ngIf="!id" class="form-group">
+    <label for="id">Employee ID</label>
+    <input
+      [class.is-invalid]="employeeAddForm.get('id')?.invalid && employeeAddForm.get('id')?.touched"
+      type="number"
+      id="id"
+      formControlName="id"
+      class="form-control"
+    />
+    <small
+      [class.d-none]="employeeAddForm.get('id')?.valid || employeeAddForm.get('id')?.untouched"
+      class="text-danger"
+    >
+      Employee ID is required
+    </small>
+  </div>
+
+    <div class="form-group">
+        <label for="username">Employee Name</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('username')?.invalid && employeeAddForm.get('username')?.touched"
+                type="text"
+                id="username"
+                formControlName="username"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('username')?.valid || employeeAddForm.get('username')?.untouched"
+                class="text-danger"
+        >
+            Employee name is required
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('email')?.invalid && employeeAddForm.get('email')?.touched"
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('email')?.valid || employeeAddForm.get('email')?.untouched"
+                class="text-danger"
+        >
+            Valid email is required
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('age')?.invalid && employeeAddForm.get('age')?.touched"
+                type="number"
+                id="age"
+                formControlName="age"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('age')?.valid || employeeAddForm.get('age')?.untouched"
+                class="text-danger"
+        >
+            Age is required
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('dob')?.invalid && employeeAddForm.get('dob')?.touched"
+                type="date"
+                id="dob"
+                formControlName="dob"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('dob')?.valid || employeeAddForm.get('dob')?.untouched"
+                class="text-danger"
+        >
+            Date of Birth is required
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('contactNumber')?.invalid && employeeAddForm.get('contactNumber')?.touched"
+                type="text"
+                id="contactNumber"
+                formControlName="contactNumber"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('contactNumber')?.valid || employeeAddForm.get('contactNumber')?.untouched"
+                class="text-danger"
+        >
+            Contact Number is required
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('address')?.invalid && employeeAddForm.get('address')?.touched"
+                type="text"
+                id="address"
+                formControlName="address"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('address')?.valid || employeeAddForm.get('address')?.untouched"
+                class="text-danger"
+        >
+            Address is required
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="salary">Salary</label>
+        <input
+                [class.is-invalid]="employeeAddForm.get('salary')?.invalid && employeeAddForm.get('salary')?.touched"
+                type="number"
+                id="salary"
+                formControlName="salary"
+                class="form-control"
+        />
+        <small
+                [class.d-none]="employeeAddForm.get('salary')?.valid || employeeAddForm.get('salary')?.untouched"
+                class="text-danger"
+        >
+            Salary is required
+        </small>
+    </div>
+
+    <div>
+        <button type="submit" [disabled]=" !employeeAddForm.valid" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+</div>

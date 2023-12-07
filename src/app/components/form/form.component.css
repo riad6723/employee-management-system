@@ -1,0 +1,16 @@
+.employeeForm{
+    width: 60vw;
+    height: 70vh;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 30px;
+}
+button{
+    margin-top: 30px;
+}
