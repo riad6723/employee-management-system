@@ -7,7 +7,7 @@
       <label for="fromDate">From Date</label>
       <input id="fromDate" placeholder="From Date"  formControlName="fromDate" type="date" (change)="handleFromDate()" [max]="handleMaxDate()" >
       <label for="toDate">To Date</label>
-      <input id="toDate" placeholder="To Date"  formControlName="toDate" type="date" (change)="handleToDate()" [min]="paymentHistorySearchForm.get('fromDate')?.value" [max]="currDate">
+      <input id="toDate" placeholder="To Date"  formControlName="toDate" type="date" (change)="handleToDate()" [min]="paymentHistorySearchForm.get('fromDate')?.value" [max]="currDate.toISOString().split('T')[0]">
       <select formControlName="billerName" (change)="addToObjectForSearching('billerName',paymentHistorySearchForm.get('billerName')?.value)">
         <option value="" disabled selected hidden>Biller Name</option>
         <option value="btcl-domain"> btcl-domain</option>
